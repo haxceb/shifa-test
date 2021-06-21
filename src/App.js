@@ -1,24 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
+import LoginForm from './Screens/Login';
+import { Route, Switch, Redirect } from "react-router-dom";
+import PatientsTable from './Screens/PatientsTable';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { useState } from 'react';
+import UserContext from './Context/MyContext';
 
 function App() {
+
+  const [context, setContext] = useState("");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={[context, setContext]}>
+      <Router>
+        <Switch>
+          <Route exact path='/' component={LoginForm} />
+          <Route path='/patient-table' component={PatientsTable} />
+        </Switch>
+      </Router>
+    </UserContext.Provider>
+
   );
 }
 
